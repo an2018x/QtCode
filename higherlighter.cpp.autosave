@@ -1,0 +1,30 @@
+#include "highlighter.h"
+
+//! [0]
+Highlighter::Highlighter(QTextDocument *parent)
+    : QSyntaxHighlighter(parent)
+{
+    HighlighterRule rule;
+    keywordFormat.setForeground(QColor(201,81,116));
+    keywordFormat.setFontWeight(QFont::Bold);
+    QStringList keywordPatterns;
+    keywordPatterns<< "\\bchar\\b" << "\\bclass\\b" << "\\bconst\\b"
+                   << "\\bdouble\\b" << "\\benum\\b" << "\\bexplicit\\b"
+                   << "\\bfriend\\b" << "\\binline\\b" << "\\bint\\b"
+                   << "\\blong\\b" << "\\bnamespace\\b" << "\\boperator\\b"
+                   << "\\bprivate\\b" << "\\bprotected\\b" << "\\bpublic\\b"
+                   << "\\bshort\\b" << "\\bsignals\\b" << "\\bsigned\\b"
+                   << "\\bslots\\b" << "\\bstatic\\b" << "\\bstruct\\b"
+                   << "\\btemplate\\b" << "\\btypedef\\b" << "\\btypename\\b"
+                   << "\\bunion\\b" << "\\bunsigned\\b" << "\\bvirtual\\b"
+                   << "\\bvoid\\b" << "\\bvolatile\\b" << "\\bbool\\b"<<"\\busing\\b"<<"\\bconstexpr\\b"
+                   <<"\\bsizeof\\b"<<"\\bif\\b"<<"\\bfor\\b"<<"\\bforeach\\b"<<"\\bwhile\\b"<<"\\bdo\\b"<<"\\bcase\\b"
+                   <<"\\bbreak\\b"<<"\\bcontinue\\b"<<"\\btemplate\\b"<<"\\bdelete\\b"<<"\\bnew\\b"
+                   <<"\\bdefault\\b"<<"\\btry\\b"<<"\\breturn\\b"<<"\\bthrow\\b"<<"\\bcatch\\b"<<"\\bgoto\\b"<<"\\belse\\b"
+                   <<"\\bextren\\b"<<"\\bthis\\b"<<"\\bswitch\\b"<<"\\binclude\\b"<<"\\bdefine\\b";
+    foreach (const QString &pattern, keywordPatterns) {
+        rule.pattern = QRegularExpression(pattern);
+        rule.format = keywordFormat;
+        highlighterRules.append(rule);
+}
+
